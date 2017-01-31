@@ -8,5 +8,5 @@ export function* getAllProducts() {
 }
 
 export default [
-    fork(getAllProducts)
+    fork(getAllProducts),
 ]

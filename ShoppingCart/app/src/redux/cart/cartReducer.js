@@ -1,4 +1,7 @@
+import { combineReducers } from 'redux'
 import { handleActions } from 'redux-actions';
+
+const initialState = {};
 
 const cartReducer = handleActions({
     ADD_TO_CART: (state, { payload }) => ({...state, [payload]: (state[payload] || 0) + 1}),
@@ -8,8 +11,9 @@ const cartReducer = handleActions({
         if (qty > 0) copy[payload] = qty;
         else delete copy[payload];
         return copy;
-    }
-}, {});
+    },
+    CHECKOUT_SUCCESS: (state, { payload }) => initialState
+}, initialState);
 
 export function getCartProducts(state) {
     return Object.keys(state.cartReducer).map(id=>({

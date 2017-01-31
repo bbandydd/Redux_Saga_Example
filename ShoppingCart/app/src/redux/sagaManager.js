@@ -1,8 +1,10 @@
 import productSaga from './product/productSaga';
+import checkoutSaga from './checkout/checkoutSaga';
 
 function* sagas() {
     yield [
-        ...productSaga
+        ...productSaga,
+        ...checkoutSaga
     ]
 }
 

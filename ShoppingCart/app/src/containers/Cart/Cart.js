@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 import { getCartProducts, getTotal } from '../../redux/cart/cartReducer';
 import CartItem from './components/CartItem';
 import cartActions from '../../redux/cart/cartActions';
+import checkoutActions from '../../redux/checkout/checkoutActions';
 
 @connect(
     state => ({
         products: getCartProducts(state),
-        total: getTotal(state)
+        total: getTotal(state),
+        checkoutPending: state.checkoutReducer.checkoutPending,
+        error: state.checkoutReducer.error
     }),
-    { removeFromCart: cartActions.removeFromCart }
+    { removeFromCart: cartActions.removeFromCart, checkout: checkoutActions.checkout }
 )
 export default class Cart extends Component {
     constructor(props) {
@@ -17,7 +20,7 @@ export default class Cart extends Component {
     }
 
     render() {
-        const { products, total, removeFromCart } = this.props;
+        const { products, total, error, checkoutPending, removeFromCart, checkout } = this.props;
 
         return (
             <div>
@@ -36,6 +39,13 @@ export default class Cart extends Component {
                             />
                     )}
                 </div>
+                <button 
+                    onClick={() => checkout()}
+                    disabled={!checkoutPending ? '' : 'disabled' }
+                >
+                    Checkout
+                </button>
+                <div style={{color: 'red'}}>{error}</div>
             </div>
         )
     }
