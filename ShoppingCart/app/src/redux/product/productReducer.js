@@ -1,7 +1,8 @@
 import { handleActions } from 'redux-actions';
+import * as types from '../constants';
 
 const productReducer = handleActions({
-    RECEIVE_PRODUCTS: (state, { payload }) => [...state, ...payload]
+    [types.RECEIVE_PRODUCTS]: (state, { payload }) => [...state, ...payload]
 }, []);
 
 export function getProducts(state) {

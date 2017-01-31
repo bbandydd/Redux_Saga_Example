@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import * as types from '../constants';
 
 const initialState = {
     checkoutPending: false,
@@ -6,12 +7,12 @@ const initialState = {
 };
 
 const checkoutReducer = handleActions({
-    CHECKOUT_REQUEST: (state) => ({
+    [types.CHECKOUT_REQUEST]: (state) => ({
         checkoutPending: true,
         error: null
     }),
-    CHECKOUT_SUCCESS: (state) => initialState,
-    CHECKOUT_FAILURE: (state, { payload }) => ({
+    [types.CHECKOUT_SUCCESS]: (state) => initialState,
+    [types.CHECKOUT_FAILURE]: (state, { payload }) => ({
         checkoutPending: false,
         error: payload
     })

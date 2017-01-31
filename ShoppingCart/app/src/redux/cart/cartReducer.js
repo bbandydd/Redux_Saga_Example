@@ -1,18 +1,19 @@
 import { combineReducers } from 'redux'
 import { handleActions } from 'redux-actions';
+import * as types from '../constants';
 
 const initialState = {};
 
 const cartReducer = handleActions({
-    ADD_TO_CART: (state, { payload }) => ({...state, [payload]: (state[payload] || 0) + 1}),
-    REMOVE_FROM_CART: (state, { payload }) => {
+    [types.ADD_TO_CART]: (state, { payload }) => ({...state, [payload]: (state[payload] || 0) + 1}),
+    [types.REMOVE_FROM_CART]: (state, { payload }) => {
         const qty = (state[payload] || 0) - 1;
         const copy = {...state};
         if (qty > 0) copy[payload] = qty;
         else delete copy[payload];
         return copy;
     },
-    CHECKOUT_SUCCESS: (state, { payload }) => initialState
+    [types.CHECKOUT_SUCCESS]: (state, { payload }) => initialState
 }, initialState);
 
 export function getCartProducts(state) {

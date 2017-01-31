@@ -1,9 +1,10 @@
 import { createAction } from 'redux-actions';
+import * as types from '../constants';
 
 const checkoutActions = {
-    checkout: createAction('CHECKOUT_REQUEST'),
-    checkoutSuccess: createAction('CHECKOUT_SUCCESS'),
-    checkoutFailure: createAction('CHECKOUT_FAILURE'),
+    checkout: createAction(types.CHECKOUT_REQUEST),
+    checkoutSuccess: createAction(types.CHECKOUT_SUCCESS),
+    checkoutFailure: createAction(types.CHECKOUT_FAILURE),
 };
 
 export default checkoutActions;
