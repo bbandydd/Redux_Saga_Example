@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import cartActions from '../../redux/cart/cartActions';
+import { getProducts } from '../../redux/product/productReducer';
 import ProductItem from './components/ProductItem';
 
 @connect(
     state => ({
-        products: state.productReducer
+        products: getProducts(state),
     }),
     {
         addToCart: cartActions.addToCart
@@ -19,6 +20,7 @@ export default class productList extends Component {
 
     render() {
         const { products, addToCart } = this.props;
+
         return (
             <div>
                 ProductList

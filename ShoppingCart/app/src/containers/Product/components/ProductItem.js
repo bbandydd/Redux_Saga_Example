@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Product from '../../../components/Product';
 
 export default class ProductItem extends Component {
     constructor(props) {
@@ -7,17 +8,22 @@ export default class ProductItem extends Component {
 
     render() {
         const { product, addToCart } = this.props;
-        const { id, title, price, quantity, inventory} = product;
+        const addToCartAction = (
+            <button
+                onClick={() => this.props.addToCart(product.id)}
+                disabled={product.quantity > 0 ? '' : 'disabled'}>
+                {product.quantity > 0 ? 'Add to cart' : 'Sold Out'}
+            </button>
+        )
 
         return (
             <div style={{ marginBottom: 20 }}>
-                {title} - &#36;{price} {quantity ? `x ${quantity}` : null}
-                {' '}
-                <button
-                    onClick={() => addToCart(id)}
-                    disabled={inventory > 0 ? '' : 'disabled'}>
-                    {inventory > 0 ? 'Add to cart' : 'Sold Out'}
-                </button>
+                <Product
+                    title={product.title}
+                    price={product.price}
+                    quantity={product.quantity}
+                    action={addToCartAction} 
+                />
             </div>
         )
     }
