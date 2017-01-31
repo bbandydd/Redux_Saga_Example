@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCartProducts } from '../../redux/cart/cartReducer';
+import { getCartProducts, getTotal } from '../../redux/cart/cartReducer';
 import CartItem from './components/CartItem';
 import cartActions from '../../redux/cart/cartActions';
 
 @connect(
     state => ({
-        products: getCartProducts(state)
+        products: getCartProducts(state),
+        total: getTotal(state)
     }),
     { removeFromCart: cartActions.removeFromCart }
 )
@@ -16,14 +17,14 @@ export default class Cart extends Component {
     }
 
     render() {
-        const { products, removeFromCart } = this.props;
+        const { products, total, removeFromCart } = this.props;
 
         return (
             <div>
                 <h3>Your Cart</h3>
+                <p>Total: &#36;{total}</p>
                 <div>
-                    {
-                        !products.length 
+                    {!products.length 
                         ? <em>Please add some products to cart.</em>
                         : products.map(product => 
                             <CartItem
@@ -33,8 +34,7 @@ export default class Cart extends Component {
                                 key={product.item.id}
                                 onRemove={() => removeFromCart(product.item.id)}
                             />
-                        )
-                   }
+                    )}
                 </div>
             </div>
         )
